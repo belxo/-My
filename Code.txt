@@ -1,0 +1,439 @@
+public class Form1 : Form
+{
+    // Fields
+    [CompilerGenerated, AccessedThroughProperty("BackgroundWorker1")]
+    private BackgroundWorker _BackgroundWorker1;
+    [CompilerGenerated, AccessedThroughProperty("Button1")]
+    private Button _Button1;
+    [CompilerGenerated, AccessedThroughProperty("Button2")]
+    private Button _Button2;
+    [CompilerGenerated, AccessedThroughProperty("Button3")]
+    private Button _Button3;
+    [CompilerGenerated, AccessedThroughProperty("Label1")]
+    private Label _Label1;
+    [CompilerGenerated, AccessedThroughProperty("Label2")]
+    private Label _Label2;
+    [CompilerGenerated, AccessedThroughProperty("ProgressBar1")]
+    private ProgressBar _ProgressBar1;
+    [CompilerGenerated, AccessedThroughProperty("TextBox1")]
+    private TextBox _TextBox1;
+    [CompilerGenerated, AccessedThroughProperty("TextBox2")]
+    private TextBox _TextBox2;
+    [CompilerGenerated, AccessedThroughProperty("WebBrowser1")]
+    private WebBrowser _WebBrowser1;
+    private IContainer components;
+    private int X;
+    private int Y;
+
+    // Methods
+    public Form1()
+    {
+        base.MouseDown += new MouseEventHandler(this.Form1_MouseDown);
+        base.MouseMove += new MouseEventHandler(this.Form1_MouseMove);
+        base.Load += new EventHandler(this.Form1_Load);
+        this.InitializeComponent();
+    }
+
+    private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+    {
+    }
+
+    private void Button1_Click(object sender, EventArgs e)
+    {
+        string text = this.TextBox1.Text;
+        string str3 = this.TextBox2.Text;
+        string str = "IP=";
+        string item = str + text;
+        string str5 = "Port=" + str3;
+        if (!File.Exists(Application.StartupPath + "/NostaleX.dat"))
+        {
+            MessageBox.Show("Please move the Launcher into your Nostale Folder");
+            return;
+        }
+        string path = Application.StartupPath + "/config.ini";
+        bool flag = false;
+        bool flag2 = false;
+        bool flag3 = false;
+        if (File.Exists(path))
+        {
+            List<string> list = new List<string>();
+            using (StreamReader reader = new StreamReader(path))
+            {
+                for (string str7 = reader.ReadLine(); str7 != null; str7 = reader.ReadLine())
+                {
+                    list.Add(str7);
+                    Console.WriteLine(str7);
+                }
+                reader.Close();
+            }
+            if (list.Contains(str5))
+            {
+                flag2 = true;
+            }
+            if (list.Contains(item))
+            {
+                flag3 = true;
+            }
+            if (flag3 && flag2)
+            {
+                flag = true;
+                goto Label_0176;
+            }
+            File.Delete(path);
+            using (StreamWriter writer = File.CreateText(path))
+            {
+                writer.WriteLine("[NosTale_Network]");
+                writer.WriteLine(item);
+                writer.WriteLine(str5);
+                flag = true;
+                writer.Close();
+                goto Label_0176;
+            }
+        }
+        using (StreamWriter writer2 = File.CreateText(path))
+        {
+            writer2.WriteLine("[NosTale_Network]");
+            writer2.WriteLine(item);
+            writer2.WriteLine(str5);
+            flag = true;
+            writer2.Close();
+        }
+    Label_0176:
+        if (flag)
+        {
+            string str8 = Application.StartupPath + "/NostaleX.dat";
+            string str9 = "\"";
+            str9 = str9 + str8 + "\"";
+            string arguments = "/c START ";
+            arguments = ((arguments + "\"") + "\"" + " ") + str9 + " EntwellNostaleClientLoadFromIni";
+            Process process1 = new Process {
+                StartInfo = new ProcessStartInfo("cmd.exe", arguments)
+            };
+            process1.StartInfo.CreateNoWindow = true;
+            process1.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process1.Start();
+            Application.Exit();
+        }
+    }
+
+    private void Button2_Click(object sender, EventArgs e)
+    {
+        base.Close();
+    }
+
+    private void Button3_Click(object sender, EventArgs e)
+    {
+        Process.Start("NtConfig.exe");
+    }
+
+    private void client_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+    {
+    }
+
+    private void client_ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+    {
+    }
+
+    [DebuggerNonUserCode]
+    protected override void Dispose(bool disposing)
+    {
+        try
+        {
+            if (disposing && (this.components != null))
+            {
+                this.components.Dispose();
+            }
+        }
+        finally
+        {
+            base.Dispose(disposing);
+        }
+    }
+
+    private void Form1_Load(object sender, EventArgs e)
+    {
+        this.BackgroundWorker1.RunWorkerAsync();
+    }
+
+    private void Form1_MouseDown(object sender, MouseEventArgs e)
+    {
+        this.X = e.X;
+        this.Y = e.Y;
+    }
+
+    private void Form1_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Left)
+        {
+            base.Left = (e.X - this.X) + base.Left;
+            base.Top = (e.Y - this.Y) + base.Top;
+        }
+    }
+
+    [DebuggerStepThrough]
+    private void InitializeComponent()
+    {
+        ComponentResourceManager manager = new ComponentResourceManager(typeof(Form1));
+        this.WebBrowser1 = new WebBrowser();
+        this.BackgroundWorker1 = new BackgroundWorker();
+        this.ProgressBar1 = new ProgressBar();
+        this.Button1 = new Button();
+        this.Button2 = new Button();
+        this.Button3 = new Button();
+        this.TextBox1 = new TextBox();
+        this.TextBox2 = new TextBox();
+        this.Label1 = new Label();
+        this.Label2 = new Label();
+        base.SuspendLayout();
+        this.WebBrowser1.Location = new Point(15, 0x2d);
+        this.WebBrowser1.MaximumSize = new Size(0x239, 0xe4);
+        this.WebBrowser1.MinimumSize = new Size(0x239, 0xe4);
+        this.WebBrowser1.Name = "WebBrowser1";
+        this.WebBrowser1.Size = new Size(0x239, 0xe4);
+        this.WebBrowser1.TabIndex = 0;
+        this.WebBrowser1.Url = new Uri("http://www.elitepvpers.com/forum/nostale/4165487-release-nostale-p-server-launcher.html#post35312575", UriKind.Absolute);
+        this.ProgressBar1.Location = new Point(0x11, 0x175);
+        this.ProgressBar1.Name = "ProgressBar1";
+        this.ProgressBar1.Size = new Size(0x234, 15);
+        this.ProgressBar1.TabIndex = 2;
+        this.Button1.BackColor = Color.Transparent;
+        this.Button1.BackgroundImageLayout = ImageLayout.None;
+        this.Button1.FlatAppearance.BorderSize = 0;
+        this.Button1.FlatStyle = FlatStyle.Popup;
+        this.Button1.Location = new Point(0x16f, 0x193);
+        this.Button1.Name = "Button1";
+        this.Button1.Size = new Size(0x5f, 0x2e);
+        this.Button1.TabIndex = 3;
+        this.Button1.UseVisualStyleBackColor = false;
+        this.Button2.BackColor = Color.Transparent;
+        this.Button2.BackgroundImageLayout = ImageLayout.None;
+        this.Button2.FlatAppearance.BorderSize = 0;
+        this.Button2.FlatStyle = FlatStyle.Popup;
+        this.Button2.Location = new Point(480, 0x193);
+        this.Button2.Name = "Button2";
+        this.Button2.Size = new Size(0x5f, 0x2e);
+        this.Button2.TabIndex = 4;
+        this.Button2.UseVisualStyleBackColor = false;
+        this.Button3.BackColor = Color.Transparent;
+        this.Button3.BackgroundImageLayout = ImageLayout.None;
+        this.Button3.FlatAppearance.BorderSize = 0;
+        this.Button3.FlatStyle = FlatStyle.Popup;
+        this.Button3.Location = new Point(0x16, 0x193);
+        this.Button3.Name = "Button3";
+        this.Button3.Size = new Size(0x5f, 0x2e);
+        this.Button3.TabIndex = 5;
+        this.Button3.UseVisualStyleBackColor = false;
+        this.TextBox1.Location = new Point(0x7f, 0x120);
+        this.TextBox1.Name = "TextBox1";
+        this.TextBox1.Size = new Size(100, 20);
+        this.TextBox1.TabIndex = 6;
+        this.TextBox1.Text = "25.88.61.107";
+        this.TextBox2.Location = new Point(0x7f, 0x13a);
+        this.TextBox2.Name = "TextBox2";
+        this.TextBox2.Size = new Size(100, 20);
+        this.TextBox2.TabIndex = 7;
+        this.TextBox2.Text = "4001";
+        this.Label1.AutoSize = true;
+        this.Label1.BackColor = SystemColors.ControlLightLight;
+        this.Label1.Location = new Point(30, 0x123);
+        this.Label1.Name = "Label1";
+        this.Label1.Size = new Size(0x36, 13);
+        this.Label1.TabIndex = 9;
+        this.Label1.Text = "Server IP:";
+        this.Label2.AutoSize = true;
+        this.Label2.BackColor = SystemColors.ControlLightLight;
+        this.Label2.Location = new Point(30, 0x13d);
+        this.Label2.Name = "Label2";
+        this.Label2.Size = new Size(0x3f, 13);
+        this.Label2.TabIndex = 10;
+        this.Label2.Text = "Server Port:";
+        base.AutoScaleDimensions = new SizeF(6f, 13f);
+        base.AutoScaleMode = AutoScaleMode.Font;
+        this.BackColor = SystemColors.HotTrack;
+        this.BackgroundImage = NosTale_Launcher.My.Resources.Resources.Background;
+        base.ClientSize = new Size(0x257, 0x1d3);
+        base.Controls.Add(this.Label2);
+        base.Controls.Add(this.Label1);
+        base.Controls.Add(this.TextBox2);
+        base.Controls.Add(this.TextBox1);
+        base.Controls.Add(this.Button3);
+        base.Controls.Add(this.Button2);
+        base.Controls.Add(this.Button1);
+        base.Controls.Add(this.ProgressBar1);
+        base.Controls.Add(this.WebBrowser1);
+        base.FormBorderStyle = FormBorderStyle.None;
+        base.Icon = (Icon) manager.GetObject("$this.Icon");
+        base.MaximizeBox = false;
+        this.MaximumSize = new Size(0x257, 0x1d3);
+        this.MinimumSize = new Size(0x257, 0x1d3);
+        base.Name = "Form1";
+        base.TransparencyKey = SystemColors.HotTrack;
+        base.ResumeLayout(false);
+        base.PerformLayout();
+    }
+
+    // Properties
+    internal virtual BackgroundWorker BackgroundWorker1
+    {
+        [CompilerGenerated]
+        get => 
+            this._BackgroundWorker1;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            DoWorkEventHandler handler = new DoWorkEventHandler(this.BackgroundWorker1_DoWork);
+            BackgroundWorker worker = this._BackgroundWorker1;
+            if (worker != null)
+            {
+                worker.DoWork -= handler;
+            }
+            this._BackgroundWorker1 = value;
+            worker = this._BackgroundWorker1;
+            if (worker != null)
+            {
+                worker.DoWork += handler;
+            }
+        }
+    }
+
+    internal virtual Button Button1
+    {
+        [CompilerGenerated]
+        get => 
+            this._Button1;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            EventHandler handler = new EventHandler(this.Button1_Click);
+            Button button = this._Button1;
+            if (button != null)
+            {
+                button.Click -= handler;
+            }
+            this._Button1 = value;
+            button = this._Button1;
+            if (button != null)
+            {
+                button.Click += handler;
+            }
+        }
+    }
+
+    internal virtual Button Button2
+    {
+        [CompilerGenerated]
+        get => 
+            this._Button2;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            EventHandler handler = new EventHandler(this.Button2_Click);
+            Button button = this._Button2;
+            if (button != null)
+            {
+                button.Click -= handler;
+            }
+            this._Button2 = value;
+            button = this._Button2;
+            if (button != null)
+            {
+                button.Click += handler;
+            }
+        }
+    }
+
+    internal virtual Button Button3
+    {
+        [CompilerGenerated]
+        get => 
+            this._Button3;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            EventHandler handler = new EventHandler(this.Button3_Click);
+            Button button = this._Button3;
+            if (button != null)
+            {
+                button.Click -= handler;
+            }
+            this._Button3 = value;
+            button = this._Button3;
+            if (button != null)
+            {
+                button.Click += handler;
+            }
+        }
+    }
+
+    internal virtual Label Label1
+    {
+        [CompilerGenerated]
+        get => 
+            this._Label1;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            this._Label1 = value;
+        }
+    }
+
+    internal virtual Label Label2
+    {
+        [CompilerGenerated]
+        get => 
+            this._Label2;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            this._Label2 = value;
+        }
+    }
+
+    internal virtual ProgressBar ProgressBar1
+    {
+        [CompilerGenerated]
+        get => 
+            this._ProgressBar1;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            this._ProgressBar1 = value;
+        }
+    }
+
+    internal virtual TextBox TextBox1
+    {
+        [CompilerGenerated]
+        get => 
+            this._TextBox1;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            this._TextBox1 = value;
+        }
+    }
+
+    internal virtual TextBox TextBox2
+    {
+        [CompilerGenerated]
+        get => 
+            this._TextBox2;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            this._TextBox2 = value;
+        }
+    }
+
+    internal virtual WebBrowser WebBrowser1
+    {
+        [CompilerGenerated]
+        get => 
+            this._WebBrowser1;
+        [MethodImpl(MethodImplOptions.Synchronized), CompilerGenerated]
+        set
+        {
+            this._WebBrowser1 = value;
+        }
+    }
+}
